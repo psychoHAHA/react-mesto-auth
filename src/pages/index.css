@@ -45,3 +45,12 @@
 @import '../blocks/group/__like-counter/group__like-counter.css';
 @import '../blocks/group/__like-container/group__like-container.css';
 @import '../blocks/profile/__overlay/profile__overlay.css';
+
+@import '../blocks/auth/auth.css';
+@import '../blocks/auth/__titile/auth__title.css';
+@import '../blocks/auth/__input/auth__input.css';
+@import '../blocks/auth/__button/auth__button.css';
+@import '../blocks/auth/__input/auth__input.css';
+@import '../blocks/auth/__form/auth__form.css';
+@import '../blocks/auth/__link/auth__link.css';
+

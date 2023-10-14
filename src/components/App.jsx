@@ -8,6 +8,7 @@ import ImagePopup from './ImagePopup'
 import EditProfilePopup from './EditProfilePopup'
 import AddPlacePopup from './AddPlacePopup'
 import EditAvatarPopup from './EditAvatarPopup'
+import ProtectedRoute from './ProtectedRoute'
 import Register from './Register'
 import Login from './Login'
 import { CurrentUserContext } from '../contexts/CurrentUserContext'
@@ -24,7 +25,7 @@ function App() {
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
   const [selectedCard, setSelectedCard] = useState({})
-  const [loggedIn, SetLoggedIn] = useState({})
+  const [loggedIn, setLoggedIn] = useState({})
 
   useEffect(() => {
     Promise.all([api.getUserData(), api.getAllCards()])
@@ -119,25 +120,29 @@ function App() {
     <CurrentUserContext.Provider value={currentUser}>
       <div className='page'></div>
       <Header/>
-
-        
-        <Main
-          onEditProfile={handleEditProfileClick}
-          onAddPlace={handleAddPlaceClick}
-          onEditAvatar={handleEditAvatarClick}
-          onCardClick={handleCardClick}
-          onCardLike={handleCardLike}
-          onCardDelete={handleCardDelete}
-          userName={userInfo.name}
-          userAbout={userInfo.about}
-          userAvatar={userInfo.avatar}
-          cards={cards}
-        />
         <BrowserRouter>
           <Routes>
-            <Route path="/sign-up" element={<Register />}></Route>
-            <Route path="/sign-in" element={<Login />}></Route>
-            <Route path="*" element={<Navigate to="/" replace />}></Route>
+            <Route
+              path="/"
+              element={<ProtectedRoute
+                element={Main}
+                loggedIn={loggedIn}
+                onEditProfile={handleEditProfileClick}
+                onAddPlace={handleAddPlaceClick}
+                onEditAvatar={handleEditAvatarClick}
+                onCardClick={handleCardClick}
+                onCardLike={handleCardLike}
+                onCardDelete={handleCardDelete}
+                userName={userInfo.name}
+                userAbout={userInfo.about}
+                userAvatar={userInfo.avatar}
+                cards={cards}
+              />}
+            />
+            <Route path="/sign-up" element={<Register />} />
+            <Route path="/sign-in" element={<Login />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+            
           </Routes>
         </BrowserRouter>
         <Footer />

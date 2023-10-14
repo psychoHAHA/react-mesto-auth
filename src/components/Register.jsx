@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import "../blocks/Register/Register.css";
+import "../blocks/auth/auth.css"
 
 const Register = () => {
   const [formValue, setFormValue] = useState({
@@ -18,14 +18,14 @@ const Register = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="register">
-      <h1 className="register__title">Регистрация</h1>
-      <form className="register__form">
+    <div className="auth">
+      <h1 className="auth__title">Регистрация</h1>
+      <form className="auth__form">
         <input
           type="email"
           id="email"
           name="email"
-          className="register__email"
+          className="auth__input"
           placeholder="Email"
           required
         />
@@ -34,15 +34,15 @@ const Register = () => {
           type="password"
           id="password"
           name="password"
-          className="register__password"
+          className="auth__input"
           placeholder="Пароль"
           required
         />
-        <button className="register__button-submit" type="submit">
+        <button className="auth__button" type="submit">
           Зарегистрироваться
         </button>
 
-        <Link className="register__link" to="sign-in">
+        <Link className="auth__link" to="/sign-in">
           Уже зарегистрованы? Войти
         </Link>
       </form>

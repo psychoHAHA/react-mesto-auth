@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Link, useNavigate} from 'react-router-dom'
-import '../blocks/Login/Login.css'
+import '../blocks/auth/auth.css'
 
 const Login = () => {
   const [formValue, setFormValue] = useState({
@@ -12,14 +12,14 @@ const Login = () => {
 
 
   return (
-    <div className="login">
-      <h1 className="login__title">Вход</h1>
-      <form className="login__form">
+    <div className="auth">
+      <h1 className="auth__title">Вход</h1>
+      <form className="auth__form">
         <input
           type="email"
           id="email"
           name="email"
-          className="login__email"
+          className="auth__input"
           placeholder="Email"
           required
         />
@@ -28,11 +28,11 @@ const Login = () => {
           type="password"
           id="password"
           name="password"
-          className="login__password"
+          className="auth__input"
           placeholder="Пароль"
           required
         />
-        <button className="login__button-submit" type="submit">
+        <button className="auth__button" type="submit">
           Войти
         </button>
       </form>
