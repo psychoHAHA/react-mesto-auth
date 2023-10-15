@@ -2,12 +2,11 @@
   font-family: 'Inter', 'Arial', sans-serif;
   font-style: normal;
   font-weight: 400;
-  font-size: 18px;
-  line-height: 22px;
+  font-size: 16px;
+  line-height: 18px;
   background-color: #000;
   height: 50px;
   border-radius: 2px;
-  padding: 0;
   cursor: pointer;
   color: #000;
   border: none;
@@ -15,7 +14,20 @@
   justify-content: center;
   align-items: center;
   text-align: center;
-  margin: 216px auto 0 auto;
-  width: 282px;
+  margin: 173px auto 0 auto;
+  padding: 0;
+  width: 260px;
   background-color: #fff;
+}
+
+.auth__button:hover {
+  opacity: 0.8;
+}
+
+@media screen and (min-width: 880px) {
+  .auth__button {
+    width: 358px;
+    font-size: 18px;
+    line-height: 22px;
+  }
 }
