@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import * as auth from '../utils/auth.js'
 import "../blocks/auth/auth.css"
 
 const Register = () => {
@@ -8,19 +9,29 @@ const Register = () => {
     password: "",
   });
 
-  // function handleChange(evt) {
-  //   const { name, value } = evt.target;
-  //   setUserData({
-  //     ...userData,
-  //     [name]: value,
-  //   });
-  // }
-  const navigate = useNavigate();
+  const handleChange = (e) => {
+    const {name, value} = e.target
+
+    setFormValue({
+      ...formValue,
+      [name]: value
+    })
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const { email, password } = formValue
+    auth.register(email, password).then(() => {
+      navigate('/sign-in', {replace: true})
+    })
+  }
+
+  const navigate = useNavigate()
 
   return (
     <div className="auth">
       <h1 className="auth__title">Регистрация</h1>
-      <form className="auth__form">
+      <form className="auth__form" onSubmit={handleSubmit}>
         <input
           type="email"
           id="email"
@@ -28,6 +39,8 @@ const Register = () => {
           className="auth__input"
           placeholder="Email"
           required
+          value={formValue.email}
+          onChange={handleChange}
         />
 
         <input
@@ -37,8 +50,10 @@ const Register = () => {
           className="auth__input"
           placeholder="Пароль"
           required
+          value={formValue.password}
+          onChange={handleChange}
         />
-        <button className="auth__button" type="submit">
+        <button className="auth__button" type="submit" onSubmit={handleSubmit}>
           Зарегистрироваться
         </button>
 

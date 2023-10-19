@@ -11,8 +11,12 @@
   width: 260px;
   margin: 0 auto 26px auto;
   padding: 0 0 8px 0 ;
-  background-color: #000;
+  background: transparent;
   outline: 0;
+}
+
+.auth__input:-webkit-autofill {
+  transition: all 5000s ease-in-out 0s;
 }
 
 @media screen and (min-width: 880px) {
