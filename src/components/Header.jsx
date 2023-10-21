@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, useLocation } from "react-router-dom";
 
-export default function Header({ loggedIn, email }) {
+export default function Header({ loggedIn, email, signOut }) {
   const location = useLocation();
 
   const path = (location.pathname === "/sign-in") ? "/sign-up" : "/sign-in";
@@ -17,7 +17,7 @@ export default function Header({ loggedIn, email }) {
       {loggedIn ? (
         <div className="header__navbar">
           <p className="header__email">{email}</p>
-          <Link className="header__link" to="/sign-in">
+          <Link className="header__link" to="/sign-in" onClick={signOut}>
             Выйти
           </Link>
         </div>

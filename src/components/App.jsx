@@ -1,11 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  BrowserRouter,
-  Routes,
-  Route,
-  Navigate,
-  useNavigate,
-} from "react-router-dom";
+import { Routes, Route, Navigate, useNavigate } from "react-router-dom";
 import "../pages/index.css";
 import Header from "./Header";
 import Main from "./Main";
@@ -14,6 +8,7 @@ import ImagePopup from "./ImagePopup";
 import EditProfilePopup from "./EditProfilePopup";
 import AddPlacePopup from "./AddPlacePopup";
 import EditAvatarPopup from "./EditAvatarPopup";
+import InfoTooltip from "./InfoTooltip";
 import ProtectedRoute from "./ProtectedRoute";
 import Register from "./Register";
 import Login from "./Login";
@@ -30,9 +25,13 @@ function App() {
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false);
+  const [isPreloading, setIsPreloading] = useState(false);
   const [selectedCard, setSelectedCard] = useState({});
-  const [loggedIn, setLoggedIn] = useState(true);
+  const [loggedIn, setLoggedIn] = useState(false);
   const [email, setEmail] = useState("");
+  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false);
+  const [infoTooltipTitle, setInfoTooltipTitle] = "";
+  const [infoTooltipIcon, setInfoTooltipIcon] = "";
 
   const navigate = useNavigate();
 
@@ -62,6 +61,7 @@ function App() {
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
     setIsImagePopupOpen(false);
+    setIsInfoTooltipPopupOpen(false);
   }
 
   function handleOverlayClick(event) {
@@ -91,33 +91,39 @@ function App() {
   }
 
   function handleUpdateUser(value) {
+    setIsPreloading(true);
     api
       .changeUserData(value)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err))
+      .finally(() => setIsPreloading(false));
   }
 
   function handleUpdateAvatar(value) {
+    setIsPreloading(true);
     api
       .changeAvatarData(value)
       .then((res) => {
         setCurrentUser(res);
         closeAllPopups();
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err))
+      .finally(() => setIsPreloading(false));
   }
 
   function handleAddPlaceSubmit(value) {
+    setIsPreloading(true);
     api
       .createCard(value)
       .then((newCard) => {
         setCards([newCard, ...cards]);
         closeAllPopups();
       })
-      .catch((err) => alert(err));
+      .catch((err) => alert(err))
+      .finally(() => setIsPreloading(false));
   }
 
   function handleCardDelete(card) {
@@ -132,6 +138,16 @@ function App() {
   const handleLogin = () => {
     setLoggedIn(true);
   };
+  const handleRegister = () => {
+    setInfoTooltipTitle("Вы успешно зарегистрировались!");
+    setInfoTooltipIcon("succes");
+    setIsInfoTooltipPopupOpen(true);
+  };
+  const handleRegisterError = () => {
+    setInfoTooltipTitle("Что-то пошло не так! Попробуйте ещё раз.");
+    setInfoTooltipIcon("error");
+    setIsInfoTooltipPopupOpen(true);
+  };
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt");
@@ -144,6 +160,12 @@ function App() {
     }
   };
 
+  const signOut = () => {
+    localStorage.removeItem("jwt");
+    setLoggedIn(false);
+    localStorage.clear()
+  };
+
   useEffect(() => {
     checkToken();
   }, []);
@@ -151,7 +173,7 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="page"></div>
-      <Header email={email} loggedIn={loggedIn} />
+      <Header email={email} loggedIn={loggedIn} signOut={signOut} />
       <Routes>
         <Route
           path="/"
@@ -172,9 +194,18 @@ function App() {
             />
           }
         />
-        <Route path="/sign-up" element={<Register />} />
+        <Route
+          path="/sign-up"
+          element={<Register />}
+          handleRegister={handleRegister}
+          handleRegisterError={handleRegisterError}
+        />
         <Route path="/sign-in" element={<Login />} handleLogin={handleLogin} />
-        <Route path="*" element={<Navigate to="/" replace />} handleLogin={handleLogin} />
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+          handleLogin={handleLogin}
+        />
       </Routes>
       <Footer />
 
@@ -183,6 +214,7 @@ function App() {
         onClose={closeAllPopups}
         onCloseOverlay={handleOverlayClick}
         onUpdateUser={handleUpdateUser}
+        isPreloading={isPreloading}
       />
 
       <AddPlacePopup
@@ -190,6 +222,7 @@ function App() {
         onClose={closeAllPopups}
         onCloseOverlay={handleOverlayClick}
         onAddPlace={handleAddPlaceSubmit}
+        isPreloading={isPreloading}
       />
 
       <EditAvatarPopup
@@ -197,6 +230,7 @@ function App() {
         onClose={closeAllPopups}
         onCloseOverlay={handleOverlayClick}
         onUpdateAvatar={handleUpdateAvatar}
+        isPreloading={isPreloading}
       />
 
       <ImagePopup
@@ -204,6 +238,13 @@ function App() {
         isOpen={isImagePopupOpen}
         onClose={closeAllPopups}
         onCloseOverlay={handleOverlayClick}
+      />
+      <InfoTooltip
+        isOpen={isInfoTooltipPopupOpen}
+        onClose={closeAllPopups}
+        onCloseOverlay={handleOverlayClick}
+        title={infoTooltipTitle}
+        icon={infoTooltipIcon}
       />
     </CurrentUserContext.Provider>
   );

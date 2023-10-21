@@ -2,7 +2,13 @@ import React, { useEffect, useState } from "react";
 import { CurrentUserContext } from "../contexts/CurrentUserContext";
 import PopupWithForm from "./PopupWithForm";
 
-function EditAvatarPopup({ isOpen, onClose, onCloseOverlay, onUpdateAvatar }) {
+function EditAvatarPopup({
+  isOpen,
+  onClose,
+  onCloseOverlay,
+  onUpdateAvatar,
+  isPreloading,
+}) {
   const currentUser = React.useContext(CurrentUserContext);
   const linkAvatar = React.useRef();
 
@@ -22,7 +28,7 @@ function EditAvatarPopup({ isOpen, onClose, onCloseOverlay, onUpdateAvatar }) {
       onCloseOverlay={onCloseOverlay}
       onSubmit={handleSubmit}
       title="Обновить профиль"
-      buttonText="Сохранить"
+      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
       name="avatar"
     >
       <input

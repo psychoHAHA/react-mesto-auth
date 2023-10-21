@@ -5,6 +5,8 @@
 @import '../blocks/header/header.css';
 @import '../blocks/header/__logo/header__logo.css';
 @import '../blocks/header/__link/header__link.css';
+@import '../blocks/header/__email/header__email.css';
+@import '../blocks/header/__navbar/header__navbar.css';
 @import '../blocks/profile/profile.css';
 @import '../blocks/profile/__avatar/profile__avatar.css';
 @import '../blocks/profile/__info/profile__info.css';

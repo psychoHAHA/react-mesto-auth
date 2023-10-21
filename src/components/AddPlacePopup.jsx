@@ -6,7 +6,8 @@ function AddPlacePopup({
   isOpen,
   onClose,
   onCloseOverlay,
-  onAddPlace 
+  onAddPlace,
+  isPreloading
 }) {
 
   const currentUser = React.useContext(CurrentUserContext)
@@ -30,7 +31,7 @@ function AddPlacePopup({
       onCloseOverlay={onCloseOverlay}
       onSubmit={handleSubmit}
       title='Новое место'
-      buttonText='Создать'
+      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
       >
       <input
         type="text"

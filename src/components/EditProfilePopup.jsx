@@ -6,7 +6,8 @@ function EditProfilePopup({
   isOpen,
   onClose,
   onCloseOverlay,
-  onUpdateUser
+  onUpdateUser,
+  isPreloading
 }) {
 
   const currentUser = React.useContext(CurrentUserContext)
@@ -29,7 +30,7 @@ function EditProfilePopup({
       onClose={onClose}
       onCloseOverlay={onCloseOverlay}
       title='Редактирование профиля'
-      buttonText='Сохранить'
+      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
       onSubmit={handleSubmit}>
       
       <input 
