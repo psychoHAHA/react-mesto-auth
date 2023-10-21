@@ -135,12 +135,12 @@ function App() {
       .catch((err) => alert(err))
   }
 
-  const handleTooltipClick = () => {
+  const onRegister = () => {
     setInfoTooltipTitle("Вы успешно зарегистрировались!")
     setInfoTooltipIcon("succes")
     setIsInfoTooltipPopupOpen(true)
   }
-  const handleTooltipErrorClick = () => {
+  const onError = () => {
     setInfoTooltipTitle("Что-то пошло не так! Попробуйте ещё раз.")
     setInfoTooltipIcon("error")
     setIsInfoTooltipPopupOpen(true)
@@ -151,10 +151,10 @@ function App() {
       .register(email, password)
       .then(() => {
         navigate("/sign-in", { replace: true })
-        handleTooltipClick()
+        onRegister()
       })
       .catch((err) => {
-        handleTooltipErrorClick()
+        onError()
         alert(err)
       })
   }
@@ -210,7 +210,7 @@ function App() {
         <Route
           path="/sign-up"
           element={<Register />}
-          handleRegister={handleRegister}
+          onRegister={handleRegister}
         />
         <Route path="/sign-in" element={<Login />} handleLogin={handleLogin} />
         <Route

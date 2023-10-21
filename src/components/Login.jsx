@@ -23,13 +23,14 @@ const Login = ({ handleLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const { email, password } = formValue
-    auth.authorize(email, password).then((data) => {
-      if (data.jwt) {
-        setFormValue({ email: "", password: "" })
-        handleLogin()
-        navigate("/", { replace: true })
-      }
-    })
+    auth.authorize(email, password)
+      .then((data) => {
+        if (data.jwt) {
+          setFormValue({ email: "", password: "" })
+          handleLogin()
+          navigate("/", { replace: true })
+        }
+      })
   }
 
   return (
