@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
-import PopupWithForm from "./PopupWithForm";
+import React, { useEffect, useState } from "react"
+import { CurrentUserContext } from "../contexts/CurrentUserContext"
+import PopupWithForm from "./PopupWithForm"
 
 function EditAvatarPopup({
   isOpen,
@@ -9,16 +9,16 @@ function EditAvatarPopup({
   onUpdateAvatar,
   isPreloading,
 }) {
-  const currentUser = React.useContext(CurrentUserContext);
-  const linkAvatar = React.useRef();
+  const currentUser = React.useContext(CurrentUserContext)
+  const linkAvatar = React.useRef()
 
   useEffect(() => {
-    linkAvatar.current.value = "";
-  }, [currentUser]);
+    linkAvatar.current.value = ""
+  }, [currentUser])
 
   function handleSubmit(e) {
-    e.preventDefault();
-    onUpdateAvatar({ avatar: linkAvatar.current.value });
+    e.preventDefault()
+    onUpdateAvatar({ avatar: linkAvatar.current.value })
   }
 
   return (
@@ -29,8 +29,7 @@ function EditAvatarPopup({
       onSubmit={handleSubmit}
       title="Обновить профиль"
       buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
-      name="avatar"
-    >
+      name="avatar">
       <input
         type="url"
         placeholder="Ссылка на аватар профиля"
@@ -42,7 +41,7 @@ function EditAvatarPopup({
       />
       <span className="popup__input-error avatar-input-error"></span>
     </PopupWithForm>
-  );
+  )
 }
 
-export default EditAvatarPopup;
+export default EditAvatarPopup

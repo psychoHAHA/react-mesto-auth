@@ -7,9 +7,8 @@ function AddPlacePopup({
   onClose,
   onCloseOverlay,
   onAddPlace,
-  isPreloading
+  isPreloading,
 }) {
-
   const currentUser = React.useContext(CurrentUserContext)
   const [namePlace, setNamePlace] = React.useState("")
   const [linkPlace, setLinkPLace] = React.useState("")
@@ -21,18 +20,17 @@ function AddPlacePopup({
 
   function handleSubmit(e) {
     e.preventDefault()
-    onAddPlace({name: namePlace, link: linkPlace})
+    onAddPlace({ name: namePlace, link: linkPlace })
   }
 
   return (
-    <PopupWithForm 
+    <PopupWithForm
       isOpen={isOpen}
       onClose={onClose}
       onCloseOverlay={onCloseOverlay}
       onSubmit={handleSubmit}
-      title='Новое место'
-      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
-      >
+      title="Новое место"
+      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}>
       <input
         type="text"
         placeholder="Название"
@@ -43,7 +41,7 @@ function AddPlacePopup({
         minLength="2"
         maxLength="30"
         id="title-input"
-        value={namePlace ?? ''}
+        value={namePlace ?? ""}
         onChange={(event) => setNamePlace(event.target.value)}
       />
       <span className="popup__input-error title-input-error"></span>
@@ -54,7 +52,7 @@ function AddPlacePopup({
         name="link"
         required
         id="url-input"
-        value={linkPlace ?? ''}
+        value={linkPlace ?? ""}
         onChange={(event) => setLinkPLace(event.target.value)}
       />
       <span className="popup__input-error url-input-error"></span>

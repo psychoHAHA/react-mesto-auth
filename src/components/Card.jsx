@@ -1,5 +1,5 @@
-import React from "react";
-import { CurrentUserContext } from "../contexts/CurrentUserContext";
+import React from "react"
+import { CurrentUserContext } from "../contexts/CurrentUserContext"
 
 function Card({
   card,
@@ -8,16 +8,15 @@ function Card({
   onCardDelete,
   handleCardClick,
 }) {
-
   const handleCardLike = () => onCardLike(card)
   const handleCardDelete = () => onCardDelete(card)
 
   const currentUser = React.useContext(CurrentUserContext)
   const isOwn = card.owner._id === currentUser._id
-  const isLiked = card.likes.some(i => i._id === currentUser._id)
-  const cardLikeButtonClassName = ( 
-    `group__button ${isLiked && 'group__button_active'}` 
-  )
+  const isLiked = card.likes.some((i) => i._id === currentUser._id)
+  const cardLikeButtonClassName = `group__button ${
+    isLiked && "group__button_active"
+  }`
 
   function handleCardClick() {
     onCardClick(card)
@@ -26,15 +25,30 @@ function Card({
   return (
     <>
       <div className="group__element">
-          <img src={card.link} alt={card.name} className="group__image" onClick={handleCardClick} />
-          {isOwn && <button className="group__button-delete" type="button" aria-label="Удалить" onClick={handleCardDelete}></button>}
-          <div className="group__items">
-              <h2 className="group__title">{card.name}</h2>
-              <div className="group__like-container">
-                  <button type="button" aria-label="Отметить как понравившееся" className={cardLikeButtonClassName} onClick={handleCardLike}></button>
-                  <p className="group__like-counter">{card.likes.length}</p>
-              </div>
+        <img
+          src={card.link}
+          alt={card.name}
+          className="group__image"
+          onClick={handleCardClick}
+        />
+        {isOwn && (
+          <button
+            className="group__button-delete"
+            type="button"
+            aria-label="Удалить"
+            onClick={handleCardDelete}></button>
+        )}
+        <div className="group__items">
+          <h2 className="group__title">{card.name}</h2>
+          <div className="group__like-container">
+            <button
+              type="button"
+              aria-label="Отметить как понравившееся"
+              className={cardLikeButtonClassName}
+              onClick={handleCardLike}></button>
+            <p className="group__like-counter">{card.likes.length}</p>
           </div>
+        </div>
       </div>
     </>
   )

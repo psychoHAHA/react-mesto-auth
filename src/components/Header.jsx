@@ -1,11 +1,11 @@
-import React from "react";
-import { Link, useLocation } from "react-router-dom";
+import React from "react"
+import { Link, useLocation } from "react-router-dom"
 
 export default function Header({ loggedIn, email, signOut }) {
-  const location = useLocation();
+  const location = useLocation()
 
-  const path = (location.pathname === "/sign-in") ? "/sign-up" : "/sign-in";
-  const LinkName = (location.pathname === "/sign-in") ? "Регистрация" : "Войти";
+  const path = location.pathname === "/sign-in" ? "/sign-up" : "/sign-in"
+  const LinkName = location.pathname === "/sign-in" ? "Регистрация" : "Войти"
 
   return (
     <header className="header">
@@ -27,5 +27,5 @@ export default function Header({ loggedIn, email, signOut }) {
         </Link>
       )}
     </header>
-  );
+  )
 }

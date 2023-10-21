@@ -7,9 +7,8 @@ function EditProfilePopup({
   onClose,
   onCloseOverlay,
   onUpdateUser,
-  isPreloading
+  isPreloading,
 }) {
-
   const currentUser = React.useContext(CurrentUserContext)
   const [name, setName] = useState("")
   const [description, setDescription] = useState("")
@@ -21,7 +20,7 @@ function EditProfilePopup({
 
   function handleSubmit(e) {
     e.preventDefault()
-    onUpdateUser({name, about: description})
+    onUpdateUser({ name, about: description })
   }
 
   return (
@@ -29,11 +28,10 @@ function EditProfilePopup({
       isOpen={isOpen}
       onClose={onClose}
       onCloseOverlay={onCloseOverlay}
-      title='Редактирование профиля'
+      title="Редактирование профиля"
       buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
       onSubmit={handleSubmit}>
-      
-      <input 
+      <input
         type="text"
         placeholder="Имя"
         className="popup__input popup__input_edit_profile-name"
@@ -43,7 +41,7 @@ function EditProfilePopup({
         maxLength="40"
         id="name-input"
         onChange={(event) => setName(event.target.value)}
-        value={name ?? ''}
+        value={name ?? ""}
       />
       <span className="popup__input-error name-input-error"></span>
       <input
@@ -55,10 +53,9 @@ function EditProfilePopup({
         minLength="2"
         maxLength="200"
         id="info-input"
-        value={description ?? ''}
+        value={description ?? ""}
       />
       <span className="popup__input-error info-input-error"></span>
-
     </PopupWithForm>
   )
 }

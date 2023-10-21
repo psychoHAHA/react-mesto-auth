@@ -1,34 +1,33 @@
-import React, {useState} from "react";
-import {useNavigate} from 'react-router-dom'
-import * as auth from '../utils/auth.js'
-import '../blocks/auth/auth.css'
+import React, { useState } from "react"
+import { useNavigate } from "react-router-dom"
+import * as auth from "../utils/auth.js"
+import "../blocks/auth/auth.css"
 
-const Login = ({handleLogin}) => {
+const Login = ({ handleLogin }) => {
   const [formValue, setFormValue] = useState({
-    email: '',
-    password: ''
+    email: "",
+    password: "",
   })
 
   const navigate = useNavigate()
 
   const handleChange = (e) => {
-    const {name, value} = e.target
+    const { name, value } = e.target
 
     setFormValue({
       ...formValue,
-      [name]: value
+      [name]: value,
     })
   }
 
   const handleSubmit = (e) => {
     e.preventDefault()
     const { email, password } = formValue
-    auth.authorize(email, password)
-    .then((data) => {
+    auth.authorize(email, password).then((data) => {
       if (data.jwt) {
-        setFormValue({email: '', password: ''})
+        setFormValue({ email: "", password: "" })
         handleLogin()
-        navigate('/', {replace: true})
+        navigate("/", { replace: true })
       }
     })
   }
@@ -58,7 +57,7 @@ const Login = ({handleLogin}) => {
           onChange={handleChange}
           required
         />
-        <button className="auth__button" type="submit" onSubmit={handleSubmit} >
+        <button className="auth__button" type="submit" onSubmit={handleSubmit}>
           Войти
         </button>
       </form>

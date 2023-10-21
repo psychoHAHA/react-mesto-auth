@@ -1,37 +1,29 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import * as auth from "../utils/auth.js";
-import "../blocks/auth/auth.css";
+import React, { useState } from "react"
+import { Link, useNavigate } from "react-router-dom"
+import * as auth from "../utils/auth.js"
+import "../blocks/auth/auth.css"
 
-const Register = (handleRegister, handleRegisterError) => {
+const Register = ({ handleRegister }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
-  });
+  })
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
+    const { name, value } = e.target
 
     setFormValue({
       ...formValue,
       [name]: value,
-    });
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    const { email, password } = formValue;
-    auth.register(email, password)
-    .then(() => {
-      navigate("/sign-in", { replace: true });
-      handleRegister()
     })
-    .catch((err) => {
-      alert(err)
-    }) 
   }
 
-  const navigate = useNavigate();
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    const { email, password } = formValue
+  }
+
+  const navigate = useNavigate()
 
   return (
     <div className="auth">
@@ -67,7 +59,7 @@ const Register = (handleRegister, handleRegisterError) => {
         </Link>
       </form>
     </div>
-  );
-};
+  )
+}
 
-export default Register;
+export default Register
