@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom"
 import * as auth from "../utils/auth.js"
 import "../blocks/auth/auth.css"
 
-const Login = ({ handleLogin }) => {
+const Login = ({ onLogin }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -27,7 +27,7 @@ const Login = ({ handleLogin }) => {
       .then((data) => {
         if (data.jwt) {
           setFormValue({ email: "", password: "" })
-          handleLogin()
+          onLogin()
           navigate("/", { replace: true })
         }
       })

@@ -2,10 +2,12 @@ import React from "react"
 import okIcon from "../images/ok.svg"
 import errorIcon from "../images/error.svg"
 
-function InfoTooltip({ isOpen, onClose, onCloseOverlay, title, icon }) {
+function InfoTooltip({ onClose, onCloseOverlay, isMessage }) {
+  const {title, icon} = isMessage
+
   return (
     <aside
-      className={`popup popup-tooltip  ${isOpen ? "popup_opened" : ""}`}
+      className={`popup popup-tooltip  ${isMessage ? "popup_opened" : ""}`}
       onClick={onCloseOverlay}>
       <div
         className="popup-tooltip__content"

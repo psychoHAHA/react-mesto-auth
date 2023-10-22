@@ -56,3 +56,6 @@
 @import '../blocks/auth/__input/auth__input.css';
 @import '../blocks/auth/__form/auth__form.css';
 @import '../blocks/auth/__link/auth__link.css';
+
+@import '../blocks/popup-tooltip/__content/popup-tooltip__content.css';
+@import '../blocks/popup-tooltip/__content/__title/popup-tooltip__title.css';

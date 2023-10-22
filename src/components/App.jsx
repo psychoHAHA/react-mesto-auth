@@ -29,9 +29,8 @@ function App() {
   const [selectedCard, setSelectedCard] = useState({})
   const [loggedIn, setLoggedIn] = useState(false)
   const [email, setEmail] = useState("")
-  const [isInfoTooltipPopupOpen, setIsInfoTooltipPopupOpen] = useState(false)
-  const [infoTooltipTitle, setInfoTooltipTitle] = ""
-  const [infoTooltipIcon, setInfoTooltipIcon] = ""
+
+  const [isMessage, setIsMessage] = useState({title: '', icon: ''})
 
   const navigate = useNavigate()
 
@@ -62,7 +61,7 @@ function App() {
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setIsImagePopupOpen(false)
-    setIsInfoTooltipPopupOpen(false)
+    setIsMessage('')
   }
 
   function handleOverlayClick(event) {
@@ -136,27 +135,16 @@ function App() {
       .catch((err) => alert(err))
   }
 
-  const onRegister = () => {
-    setInfoTooltipTitle("Вы успешно зарегистрировались!")
-    setInfoTooltipIcon("succes")
-    setIsInfoTooltipPopupOpen(true)
-  }
-  const onError = () => {
-    setInfoTooltipTitle("Что-то пошло не так! Попробуйте ещё раз.")
-    setInfoTooltipIcon("error")
-    setIsInfoTooltipPopupOpen(true)
-  }
-
-  const handleRegister = (email, password) => {
+  function handleRegister(email, password) {
     auth
       .register(email, password)
       .then(() => {
         navigate("/sign-in", { replace: true })
-        onRegister()
+        setIsMessage({title: "Вы успешно зарегистрировались!", icon: "succes"})
       })
       .catch((err) => {
-        onError()
-        alert(err)
+        setIsMessage({title: "Что-то пошло не так! Попробуйте ещё раз.", icon: "error"})
+        console.log(err)
       })
   }
 
@@ -176,8 +164,8 @@ function App() {
   }
 
   const signOut = () => {
-    localStorage.removeItem("jwt")
     setLoggedIn(false)
+    localStorage.clear()
   }
 
   useEffect(() => {
@@ -210,10 +198,9 @@ function App() {
         />
         <Route
           path="/sign-up"
-          element={<Register />}
-          onRegister={handleRegister}
+          element={<Register onRegister={handleRegister} />}
         />
-        <Route path="/sign-in" element={<Login />} handleLogin={handleLogin} />
+        <Route path="/sign-in" element={<Login />} onLogin={handleLogin} />
         <Route
           path="/"
           element={
@@ -263,11 +250,9 @@ function App() {
         onCloseOverlay={handleOverlayClick}
       />
       <InfoTooltip
-        isOpen={isInfoTooltipPopupOpen}
         onClose={closeAllPopups}
         onCloseOverlay={handleOverlayClick}
-        title={infoTooltipTitle}
-        icon={infoTooltipIcon}
+        isMessage={isMessage}
       />
     </CurrentUserContext.Provider>
   )
