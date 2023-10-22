@@ -36,13 +36,13 @@ function App() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    loggedIn && 
+    loggedIn &&
       Promise.all([api.getUserData(), api.getAllCards()])
-      .then(([user, cards]) => {
-        setCurrentUser(user)
-        setCards(cards)
-      })
-      .catch((err) => alert(err))
+        .then(([user, cards]) => {
+          setCurrentUser(user)
+          setCards(cards)
+        })
+        .catch((err) => alert(err))
   }, [loggedIn])
 
   function handleEditProfileClick() {
@@ -214,11 +214,16 @@ function App() {
           onRegister={handleRegister}
         />
         <Route path="/sign-in" element={<Login />} handleLogin={handleLogin} />
-        <Route path="/" element={loggedIn ? (
-          <Navigate to="/" replace />
-        ) : (
-          <Navigate to="sign-in" replace />
-        )} />
+        <Route
+          path="/"
+          element={
+            loggedIn ? (
+              <Navigate to="/" replace />
+            ) : (
+              <Navigate to="/sign-in" replace />
+            )
+          }
+        />
         <Route
           path="*"
           element={<Navigate to="/" replace />}
