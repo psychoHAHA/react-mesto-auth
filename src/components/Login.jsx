@@ -23,14 +23,7 @@ const Login = ({ onLogin }) => {
   const handleSubmit = (e) => {
     e.preventDefault()
     const { email, password } = formValue
-    auth.authorize(email, password)
-      .then((data) => {
-        if (data.jwt) {
-          setFormValue({ email: "", password: "" })
-          onLogin()
-          navigate("/", { replace: true })
-        }
-      })
+    onLogin(email, password)
   }
 
   return (
@@ -58,7 +51,7 @@ const Login = ({ onLogin }) => {
           onChange={handleChange}
           required
         />
-        <button className="auth__button" type="submit" onSubmit={handleSubmit}>
+        <button className="auth__button" type="submit" >
           Войти
         </button>
       </form>

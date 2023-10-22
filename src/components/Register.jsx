@@ -26,7 +26,7 @@ const Register = ({ onRegister }) => {
   const navigate = useNavigate()
 
   return (
-    <div className="auth" onSubmit={handleSubmit}>
+    <div className="auth">
       <h1 className="auth__title">Регистрация</h1>
       <form className="auth__form" onSubmit={handleSubmit}>
         <input
@@ -50,7 +50,7 @@ const Register = ({ onRegister }) => {
           value={formValue.password}
           onChange={handleChange}
         />
-        <button className="auth__button" type="submit" onSubmit={handleSubmit}>
+        <button className="auth__button" type="submit">
           Зарегистрироваться
         </button>
 

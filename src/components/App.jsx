@@ -30,7 +30,12 @@ function App() {
   const [loggedIn, setLoggedIn] = useState(false)
   const [email, setEmail] = useState("")
 
-  const [isMessage, setIsMessage] = useState({title: '', icon: ''})
+  const [formValue, setFormValue] = useState({
+    email: "",
+    password: "",
+  })
+
+  const [isMessage, setIsMessage] = useState({ title: "", icon: "" })
 
   const navigate = useNavigate()
 
@@ -61,7 +66,7 @@ function App() {
     setIsAddPlacePopupOpen(false)
     setIsEditAvatarPopupOpen(false)
     setIsImagePopupOpen(false)
-    setIsMessage('')
+    setIsMessage("")
   }
 
   function handleOverlayClick(event) {
@@ -135,21 +140,36 @@ function App() {
       .catch((err) => alert(err))
   }
 
-  function handleRegister(email, password) {
+  const handleRegister = (email, password) => {
     auth
       .register(email, password)
       .then(() => {
         navigate("/sign-in", { replace: true })
-        setIsMessage({title: "Вы успешно зарегистрировались!", icon: "succes"})
+        setIsMessage({
+          title: "Вы успешно зарегистрировались!",
+          icon: "succes",
+        })
+        setTimeout(() => closeAllPopups(), 1000)
       })
       .catch((err) => {
-        setIsMessage({title: "Что-то пошло не так! Попробуйте ещё раз.", icon: "error"})
+        setIsMessage({
+          title: "Что-то пошло не так! Попробуйте ещё раз.",
+          icon: "error",
+        })
         console.log(err)
       })
   }
 
-  const handleLogin = () => {
-    setLoggedIn(true)
+  const handleLogin = (email, password) => {
+    auth
+      .authorize(email, password)
+      .then((data) => {
+        if (data.jwt) {
+          setFormValue({ email: "", password: "" })
+          setLoggedIn(true)
+          navigate("/", {replace: true})
+        }
+      })
   }
 
   const checkToken = () => {
@@ -158,7 +178,7 @@ function App() {
       auth.getContent(jwt).then((res) => {
         setLoggedIn(true)
         setEmail(res.data.email)
-        navigate("/")
+        navigate("/", {replace: true})
       })
     }
   }
@@ -178,7 +198,7 @@ function App() {
       <Header email={email} loggedIn={loggedIn} signOut={signOut} />
       <Routes>
         <Route
-          path="/"
+          path=""
           element={
             <ProtectedRoute
               element={Main}
@@ -200,8 +220,8 @@ function App() {
           path="/sign-up"
           element={<Register onRegister={handleRegister} />}
         />
-        <Route path="/sign-in" element={<Login />} onLogin={handleLogin} />
-        <Route
+        <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
+        {/* <Route
           path="/"
           element={
             loggedIn ? (
@@ -210,11 +230,10 @@ function App() {
               <Navigate to="/sign-in" replace />
             )
           }
-        />
+        /> */}
         <Route
           path="*"
           element={<Navigate to="/" replace />}
-          handleLogin={handleLogin}
         />
       </Routes>
       <Footer />
