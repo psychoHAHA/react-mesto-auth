@@ -1,6 +1,5 @@
 import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
-import * as auth from "../utils/auth.js"
 import "../blocks/auth/auth.css"
 
 const Login = ({ onLogin }) => {
