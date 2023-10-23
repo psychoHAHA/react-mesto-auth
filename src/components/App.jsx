@@ -164,7 +164,7 @@ function App() {
 
   const handleLogin = (email, password) => {
     auth.authorize(email, password).then((data) => {
-      if (data.jwt) {
+      if (data.token) {
         localStorage.setItem("jwt", data.token);
         setFormValue({ email: "", password: "" });
         setLoggedIn(true);
@@ -222,7 +222,7 @@ function App() {
           element={<Register onRegister={handleRegister} />}
         />
         <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
-        
+
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
       <Footer />
