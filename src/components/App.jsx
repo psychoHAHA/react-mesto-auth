@@ -21,11 +21,13 @@ function App() {
   const [userInfo, setUserInfo] = useState({})
   const [cards, setCards] = useState([])
   const [currentUser, setCurrentUser] = useState({})
+
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false)
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false)
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false)
   const [isImagePopupOpen, setIsImagePopupOpen] = useState(false)
   const [isPreloading, setIsPreloading] = useState(false)
+
   const [selectedCard, setSelectedCard] = useState({})
   const [loggedIn, setLoggedIn] = useState(false)
   const [email, setEmail] = useState("")
@@ -165,9 +167,10 @@ function App() {
       .authorize(email, password)
       .then((data) => {
         if (data.jwt) {
+          localStorage.setItem("jwt", data.token)
           setFormValue({ email: "", password: "" })
           setLoggedIn(true)
-          navigate("/", {replace: true})
+          navigate("/mesto-react-auth", {replace: true})
         }
       })
   }
@@ -178,14 +181,14 @@ function App() {
       auth.getContent(jwt).then((res) => {
         setLoggedIn(true)
         setEmail(res.data.email)
-        navigate("/", {replace: true})
+        navigate("/mesto-react-auth", {replace: true})
       })
     }
   }
 
   const signOut = () => {
+    localStorage.removeItem("jwt")
     setLoggedIn(false)
-    localStorage.clear()
   }
 
   useEffect(() => {
@@ -198,7 +201,7 @@ function App() {
       <Header email={email} loggedIn={loggedIn} signOut={signOut} />
       <Routes>
         <Route
-          path=""
+          path="/mesto-react-auth"
           element={
             <ProtectedRoute
               element={Main}
@@ -221,19 +224,19 @@ function App() {
           element={<Register onRegister={handleRegister} />}
         />
         <Route path="/sign-in" element={<Login onLogin={handleLogin} />} />
-        {/* <Route
-          path="/"
+        <Route
+          path="*"
+          element={<Navigate to="/" replace />}
+        />
+        <Route
+          path="/mesto-react-auth"
           element={
             loggedIn ? (
-              <Navigate to="/" replace />
+              <Navigate to="/mesto-react-auth" replace />
             ) : (
               <Navigate to="/sign-in" replace />
             )
           }
-        /> */}
-        <Route
-          path="*"
-          element={<Navigate to="/" replace />}
         />
       </Routes>
       <Footer />
