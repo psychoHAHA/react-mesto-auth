@@ -51,6 +51,7 @@ function EditProfilePopup({
         minLength="2"
         maxLength="200"
         id="info-input"
+        onChange={(event) => setDescription(event.target.value) }
         value={description || ""}
       />
       <span className="popup__input-error info-input-error"></span>

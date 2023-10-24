@@ -163,7 +163,6 @@ function App() {
   }
 
   const handleRegister = (email, password) => {
-    setIsPreloading(true)
     auth
       .register(email, password)
       .then(() => {
@@ -179,7 +178,6 @@ function App() {
           title: "Что-то пошло не так! Попробуйте ещё раз.",
           icon: "error",
         })
-        .finally(() => setIsPreloading(false))
         console.log(err)
       })
   }

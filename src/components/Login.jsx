@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { useNavigate } from "react-router-dom"
 import "../blocks/auth/auth.css"
 
-const Login = ({ onLogin, isPreloading }) => {
+const Login = ({ onLogin }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -51,7 +51,7 @@ const Login = ({ onLogin, isPreloading }) => {
           required
         />
         <button className="auth__button" type="submit" >
-        {isPreloading ? "Загрузка..." : "Войти"}
+          Войти
         </button>
       </form>
     </div>
