@@ -1,11 +1,10 @@
-import React, { useEffect, useState } from "react"
+import React, { useEffect } from "react"
 import { CurrentUserContext } from "../contexts/CurrentUserContext"
 import PopupWithForm from "./PopupWithForm"
 
 function EditAvatarPopup({
   isOpen,
   onClose,
-  onCloseOverlay,
   onUpdateAvatar,
   isPreloading,
 }) {
@@ -25,10 +24,9 @@ function EditAvatarPopup({
     <PopupWithForm
       isOpen={isOpen}
       onClose={onClose}
-      onCloseOverlay={onCloseOverlay}
       onSubmit={handleSubmit}
       title="Обновить профиль"
-      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
+      buttonText={isPreloading ? "Сохранение..." : "Сохранить"}
       name="avatar">
       <input
         type="url"

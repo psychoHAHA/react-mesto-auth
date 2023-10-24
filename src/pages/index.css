@@ -7,6 +7,7 @@
 @import '../blocks/header/__link/header__link.css';
 @import '../blocks/header/__email/header__email.css';
 @import '../blocks/header/__navbar/header__navbar.css';
+@import '../blocks/header/__link-auth/header__link-auth.css';
 @import '../blocks/profile/profile.css';
 @import '../blocks/profile/__avatar/profile__avatar.css';
 @import '../blocks/profile/__info/profile__info.css';
@@ -50,12 +51,13 @@
 @import '../blocks/profile/__overlay/profile__overlay.css';
 
 @import '../blocks/auth/auth.css';
-@import '../blocks/auth/__titile/auth__title.css';
+@import '../blocks/auth/__title/auth__title.css';
 @import '../blocks/auth/__input/auth__input.css';
 @import '../blocks/auth/__button/auth__button.css';
 @import '../blocks/auth/__input/auth__input.css';
 @import '../blocks/auth/__form/auth__form.css';
 @import '../blocks/auth/__link/auth__link.css';
 
-@import '../blocks/popup-tooltip/__content/popup-tooltip__content.css';
-@import '../blocks/popup-tooltip/__content/__title/popup-tooltip__title.css';
+@import '../blocks/popup-tooltip/popup__tooltip.css';
+@import '../blocks/popup-tooltip/__title/popup-tooltip__title.css';
+@import '../blocks/popup-tooltip/__content/__content/popup-tooltip__content.css';

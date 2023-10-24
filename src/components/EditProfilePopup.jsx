@@ -5,7 +5,6 @@ import PopupWithForm from "./PopupWithForm"
 function EditProfilePopup({
   isOpen,
   onClose,
-  onCloseOverlay,
   onUpdateUser,
   isPreloading,
 }) {
@@ -27,9 +26,8 @@ function EditProfilePopup({
     <PopupWithForm
       isOpen={isOpen}
       onClose={onClose}
-      onCloseOverlay={onCloseOverlay}
       title="Редактирование профиля"
-      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}
+      buttonText={isPreloading ? "Сохранение..." : "Сохранить"}
       onSubmit={handleSubmit}>
       <input
         type="text"
@@ -41,7 +39,7 @@ function EditProfilePopup({
         maxLength="40"
         id="name-input"
         onChange={(event) => setName(event.target.value)}
-        value={name ?? ""}
+        value={name || ""}
       />
       <span className="popup__input-error name-input-error"></span>
       <input
@@ -53,7 +51,7 @@ function EditProfilePopup({
         minLength="2"
         maxLength="200"
         id="info-input"
-        value={description ?? ""}
+        value={description || ""}
       />
       <span className="popup__input-error info-input-error"></span>
     </PopupWithForm>

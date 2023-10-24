@@ -22,7 +22,7 @@ export default function Header({ loggedIn, email, signOut }) {
           </Link>
         </div>
       ) : (
-        <Link className="header__link" to={path}>
+        <Link className="header__link-auth" to={path}>
           {LinkName}
         </Link>
       )}

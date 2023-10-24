@@ -2,7 +2,7 @@ import React, { useState } from "react"
 import { Link, useNavigate } from "react-router-dom"
 import "../blocks/auth/auth.css"
 
-const Register = ({ onRegister }) => {
+const Register = ({ onRegister, isPreloading }) => {
   const [formValue, setFormValue] = useState({
     email: "",
     password: "",
@@ -51,7 +51,7 @@ const Register = ({ onRegister }) => {
           onChange={handleChange}
         />
         <button className="auth__button" type="submit">
-          Зарегистрироваться
+          {isPreloading ? "Загрузка..." : "Зарегистрироваться"}
         </button>
 
         <Link className="auth__link" to="/sign-in">

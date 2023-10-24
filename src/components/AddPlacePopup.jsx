@@ -5,7 +5,6 @@ import PopupWithForm from "./PopupWithForm"
 function AddPlacePopup({
   isOpen,
   onClose,
-  onCloseOverlay,
   onAddPlace,
   isPreloading,
 }) {
@@ -27,10 +26,9 @@ function AddPlacePopup({
     <PopupWithForm
       isOpen={isOpen}
       onClose={onClose}
-      onCloseOverlay={onCloseOverlay}
       onSubmit={handleSubmit}
       title="Новое место"
-      buttonText={isPreloading ? "Загрузка..." : "Сохранить"}>
+      buttonText={isPreloading ? "Загрузка..." : "Создать"}>
       <input
         type="text"
         placeholder="Название"
