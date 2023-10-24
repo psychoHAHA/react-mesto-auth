@@ -7,7 +7,7 @@ function InfoTooltip({ onClose, onCloseOverlay, isMessage }) {
 
   return (
     <aside
-      className={`popup popup-tooltip  ${isMessage ? "popup_opened" : ""}`}
+      className={`popup popup-tooltip  ${title ? "popup_opened" : ""}`}
       onClick={onCloseOverlay}>
       <div
         className="popup-tooltip__content"
