@@ -189,8 +189,10 @@ function App() {
         setLoggedIn(true)
         navigate("/", { replace: true })
       }
-    })
+    }).catch((err) => alert(err))
   }
+
+  // Большое спасибо за прикольные фичи, я их обязательно реализую перед началом новой темы, сейчас хочется просто немного передохнуть)))
 
   const checkToken = () => {
     const jwt = localStorage.getItem("jwt")
