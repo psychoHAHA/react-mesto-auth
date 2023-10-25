@@ -202,6 +202,7 @@ function App() {
         setEmail(res.data.email)
         navigate("/", { replace: true })
       })
+      .catch((err) => alert(err))
     }
   }
 
